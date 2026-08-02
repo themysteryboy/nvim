@@ -8,17 +8,27 @@
 
 local function mode_alias(m)
   local alias = {
-    n = 'NORMAL',
-    i = 'INSERT',
-    c = 'COMMAND',
-    R = 'REPLACE',
-    t = 'TERMINAL',
-    ['\22'] = 'V-BLOCK',
-    V = 'V-LINE',
-    v = 'VISUAL',
+    -- lualine 传入的全名
+    normal = "NORMAL",
+    insert = "INSERT",
+    command = "COMMAND",
+    replace = "REPLACE",
+    terminal = "TERMINAL",
+    visual = "VISUAL",
+    ["v-line"] = "V-LINE",
+    ["v-block"] = "V-BLOCK",
+    -- 兼容 vim.fn.mode() 的单字符
+    n = "NORMAL",
+    i = "INSERT",
+    c = "COMMAND",
+    R = "REPLACE",
+    t = "TERMINAL",
+    ['\22'] = "V-BLOCK",
+    V = "V-LINE",
+    v = "VISUAL",
   }
 
-  return alias[m] or ''
+  return alias[m] or m:upper()
 end
 
 require("lualine").setup({
@@ -43,8 +53,13 @@ require("lualine").setup({
     lualine_b = {
       {
         "cwd",
-        fmt = function(cwd)
-          return "󰉋  " .. vim.fn.fnamemodify(cwd, ":t") .. " "
+        fmt = function()
+          -- 直接用 getcwd() 取目录名，避免组件参数在某些环境下为空
+          local base = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+          if base == "" then
+            base = "~"
+          end
+          return "󰉋  " .. base .. " "
         end,
       },
     },
@@ -52,7 +67,9 @@ require("lualine").setup({
       { "filename", file_status = false },
       {
         "diagnostics",
-        sources = { "nvim_lsp" },
+        -- 注意：不用 nvim_lsp 数据源——nvim 0.12 的 LSP 诊断 namespace 已改为
+        -- "nvim.lsp.*"，lualine 的 nvim_lsp 过滤旧前缀 "vim.lsp" 永远匹配不到
+        sources = { "nvim_diagnostic" },
         symbols = { error = " ", warn = " ", hint = "  ", info = " " },
       },
       {
