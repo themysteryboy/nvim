@@ -44,7 +44,7 @@ require("lualine").setup({
       {
         "cwd",
         fmt = function(cwd)
-          return "  " .. vim.fn.fnamemodify(cwd, ":t") .. " "
+          return "󰉋  " .. vim.fn.fnamemodify(cwd, ":t") .. " "
         end,
       },
     },

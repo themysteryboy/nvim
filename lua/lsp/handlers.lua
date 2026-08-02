@@ -1,5 +1,5 @@
--- Signs settings
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+-- Signs settings（Nerd Font v3 图标）
+local signs = { Error = " ", Warn = " ", Hint = "󰏎 ", Info = " " }
 
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
