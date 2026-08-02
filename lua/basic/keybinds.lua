@@ -20,6 +20,9 @@ vim.keybinds.gmap("n", "<TAB>h", ":BufferLineCyclePrev<CR>", vim.keybinds.opts)
 vim.keybinds.gmap("n", "<leader>h", "<C-w>h", vim.keybinds.opts)
 vim.keybinds.gmap("n", "<leader>l", "<C-w>l", vim.keybinds.opts)
 vim.keybinds.gmap("n", "<TAB>n", ":tab split ", vim.keybinds.opts)
+-- 新建空白 buffer（显示在 bufferline 上，相当于浏览器新标签页）
+-- 用 nvim_create_buf API 而非 :enew 命令（nvim 0.12 headless 下 :enew 行为异常）
+vim.keybinds.gmap("n", "<TAB>t", ":lua local b = vim.api.nvim_create_buf(true, false); vim.api.nvim_win_set_buf(0, b)<CR>", vim.keybinds.opts)
 
 -- Use tt to toggle nvimtree
 vim.keybinds.gmap("n", "tt", "<cmd>NvimTreeToggle<CR>", vim.keybinds.opts)
