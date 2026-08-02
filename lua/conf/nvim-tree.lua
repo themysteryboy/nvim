@@ -10,24 +10,26 @@ local options = {
    },
    disable_netrw = true,
    hijack_netrw = true,
-   open_on_setup = false,
-   ignore_ft_on_setup = { "alpha" },
+   -- open_on_setup 已从新版 nvim-tree 移除（默认不自动打开）
    hijack_cursor = true,
    hijack_unnamed_buffer_when_opening = false,
-   update_cwd = true,
    update_focused_file = {
       enable = true,
-      update_cwd = false,
+      -- 旧版 update_cwd 选项已移除，tree 根目录跟随 nvim cwd 用 sync_root_with_cwd
+      update_root = {
+         enable = false,
+      },
    },
    view = {
-      adaptive_size = true,
+      -- adaptive_size 已从 setup 选项中移除（默认 false）
       side = "left",
       width = 22,
-      hide_root_folder = true,
+      -- hide_root_folder 已移除，隐藏根目录用 renderer.root_folder_label = false
+      -- renderer.root_folder_label = false,
    },
    git = {
       enable = false,
-      ignore = true,
+      -- 旧版 ignore 选项已移除
    },
    filesystem_watchers = {
       enable = true,
@@ -38,7 +40,8 @@ local options = {
       },
    },
    renderer = {
-      highlight_git = false,
+      -- 旧版 highlight_git = false 改为 "none" / "icon" / "name"
+      highlight_git = "none",
       highlight_opened_files = "none",
 
       indent_markers = {

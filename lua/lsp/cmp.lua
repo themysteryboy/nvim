@@ -27,20 +27,8 @@ local kind_icons = {
   TypeParameter = "",
 }
 
--- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
-local lspconfig = require('lspconfig')
-
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'pyright', 'tsserver', 'cssls', 'html', 'sumneko_lua', 'gopls' }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-  }
-end
+-- LSP 服务器的 capabilities 在 lsp/mason.lua 中统一配置
+-- （使用 cmp_nvim_lsp.default_capabilities()）
 
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -71,15 +59,13 @@ cmp.setup {
 			vim_item.kind = string.format("%s ", kind_icons[vim_item.kind])
 			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 			vim_item.menu = ({
-			cmp_tabnine = "TN",
-        	nvim_lsp = "LSP",
+			nvim_lsp = "LSP",
         	nvim_lua = "NVIM_LUA",
         	luasnip = "Snip",
         	buffer = "Buf",
         	path = "Path",
         	spell = "Spell",
         	calc = "Calc",
-			look = "Look",
 			})[entry.source.name]
 
 			local label = vim_item.abbr
@@ -122,13 +108,11 @@ cmp.setup {
   }),
 
   sources = {
-    { name = "cmp_tabnine" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
-    { name = "look" },
     { name = "calc" },
     { name = "spell" },
   },

@@ -1,21 +1,51 @@
-local home = os.getenv('HOME')
-local db = require('dashboard')
+-- ============================================================================
+-- 启动页：dashboard-nvim（nvimdev 维护的新版）
+-- 旧版 glepnir/dashboard-nvim 的 db.preview_command / custom_center 已废弃
+-- 新版使用 setup({ theme = "doom", config = { header, center, footer } })
+-- ============================================================================
 
-db.preview_command = 'cat | lolcat -F 0.3'
-db.preview_file_path = home .. '/.config/nvim/lua/conf/db.cat'
-db.preview_file_height = 12
-db.preview_file_width = 80
-db.custom_center = {
-	{icon = '  ',
-	desc = 'Find  File                              ',
-	action = 'Telescope find_files find_command=rg,--hidden,--files',
-	shortcut = 'SPC f f'},
-	{icon = '  ',
-	desc = 'Recently opened files                   ',
-	action =  'DashboardFindHistory',
-	shortcut = 'SPC f o'},
-	{icon = '  ',
-	desc = 'Find  Word                              ',
-	action = 'Telescope live_grep',
-	shortcut = 'SPC f w'},
-}
+local present, dashboard = pcall(require, "dashboard")
+if not present then
+	return
+end
+
+dashboard.setup({
+	theme = "doom",
+	config = {
+		header = {
+			"███╗   ██╗██╗   ██╗██╗███╗   ███╗",
+			"████╗  ██║██║   ██║██║████╗ ████║",
+			"██╔██╗ ██║██║   ██║██║██╔████╔██║",
+			"██║╚██╗██║╚██╗ ██╔╝██║██║╚██╔╝██║",
+			"██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║",
+			"╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝",
+			"",
+			"Welcome back!",
+			"",
+		},
+		center = {
+			{
+				icon = "  ",
+				desc = "Find  File",
+				key = "f",
+				keymap = "SPC f f",
+				action = "Telescope find_files",
+			},
+			{
+				icon = "  ",
+				desc = "Recently opened files",
+				key = "o",
+				keymap = "SPC f o",
+				action = "Telescope oldfiles",
+			},
+			{
+				icon = "  ",
+				desc = "Find  Word",
+				key = "w",
+				keymap = "SPC f w",
+				action = "Telescope live_grep",
+			},
+		},
+		footer = {},
+	},
+})
