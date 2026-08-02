@@ -18,15 +18,16 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 mason.setup()
 
 mason_lspconfig.setup({
-	-- 自动安装的服务器（mason 包名）
+	-- 自动安装的服务器（注意：这里必须是 lspconfig server 名称，
+	-- 不是 mason 包名。mason-lspconfig 内部会映射到 mason 包）
 	ensure_installed = {
-		"clangd", -- C/C++
-		"pyright", -- Python
-		"typescript-language-server", -- JavaScript / TypeScript
-		"css-lsp", -- CSS
-		"html-lsp", -- HTML
-		"lua-language-server", -- Lua
-		"gopls", -- Go
+		"clangd", -- C/C++            (mason 包: clangd)
+		"pyright", -- Python          (mason 包: pyright)
+		"ts_ls", -- JavaScript/TS     (mason 包: typescript-language-server)
+		"cssls", -- CSS               (mason 包: css-lsp)
+		"html", -- HTML               (mason 包: html-lsp)
+		"lua_ls", -- Lua              (mason 包: lua-language-server)
+		"gopls", -- Go                (mason 包: gopls)
 	},
 	automatic_enable = true,
 	-- 为每个服务器统一配置 capabilities（补全）和 on_attach（按键映射）
