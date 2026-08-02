@@ -27,7 +27,10 @@ local plugins = {
     lazy = false,
     priority = 1000, -- 默认主题，最先加载
     config = function()
-      vim.cmd.colorscheme("vscode")
+      -- 默认主题：自研 deus（conf/deus.lua）
+      require("conf.deus")
+      -- 想换回 vscode 主题时，把上面一行注释掉，取消下面一行注释：
+      -- vim.cmd.colorscheme("vscode")
     end,
   },
   { "tiagovla/tokyodark.nvim", lazy = false, priority = 900 },
