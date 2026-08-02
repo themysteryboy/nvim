@@ -5,6 +5,8 @@
 -- 2. settings 里的 colorscheme 已移到 plugins.lua 的 vscode.nvim config 中
 require("basic.keybinds")
 require("basic.config")
+-- 内置 treesitter：自动高亮 + 兼容旧自定义指令（不依赖任何插件，需最先加载）
+require("conf.treesitter")
 require("basic.plugins")
 require("basic.settings")
 require("lsp")

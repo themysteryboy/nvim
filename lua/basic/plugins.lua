@@ -205,17 +205,12 @@ local plugins = {
   },
 
   -- ==================== Treesitter ====================
-  -- 注意：nvim 0.12 中高亮/缩进由 Neovim 内置 vim.treesitter 负责
-  -- 本插件只负责 parser 的安装与更新（:TSInstall / :TSUpdate）
-  {
-    "nvim-treesitter/nvim-treesitter",
-    branch = "master",
-    lazy = false,
-    build = ":TSUpdate",
-    config = function()
-      require("conf.treesitter")
-    end,
-  },
+  -- 已移除 nvim-treesitter 插件（2025 年归档停更，与 nvim 0.12 不兼容，
+  -- 加载即注册损坏的 query handler，导致注入查询报错）
+  -- 现用 nvim 内置 treesitter：
+  --   - 高亮：内置 vim.treesitter.start()（conf/treesitter.lua，init.lua 已加载）
+  --   - parser：~/.local/share/nvim/site/parser/（9 个已提取，:TSInstallMy 可装新语言）
+  --   - queries：~/.local/share/nvim/site/queries/（321 种语言已提取）
 
   -- ==================== Zen Mode ====================
   {
