@@ -5,8 +5,8 @@
 -- （injection 查询报错 "attempt to call method 'range' (a nil value)"）。
 -- 本配置改用 Neovim 内置的 treesitter 运行时：
 --   - 高亮：vim.treesitter.start()（下方自动启用）
---   - parser：已提取到 ~/.local/share/nvim/site/parser/（c/cpp/rust/python/
---     go/javascript/vue/css/html）
+--   - parser：~/.local/share/nvim/site/parser/（c/cpp/rust/python/
+--     go/javascript/vue/css/html/markdown/markdown_inline）
 --   - queries：已提取到 ~/.local/share/nvim/site/queries/（321 种语言）
 --
 -- 需要新语言高亮时，手动安装 parser（以 bash 为例）：

@@ -220,6 +220,24 @@ local plugins = {
       require("conf.zen")
     end,
   },
+
+  -- ==================== Markdown 预览 ====================
+  -- 浏览器实时渲染 markdown（高亮由内置 treesitter markdown parser 提供，
+  -- 见 conf/treesitter.lua 注释：parser 编译自 tree-sitter-grammars/
+  -- tree-sitter-markdown，置于 ~/.local/share/nvim/site/parser/）
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+    config = function()
+      vim.g.mkdp_theme = "dark"
+      vim.g.mkdp_filetypes = { "markdown" }
+      vim.keybinds.gmap("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", vim.keybinds.opts)
+    end,
+  },
 }
 
 require("lazy").setup(plugins)
