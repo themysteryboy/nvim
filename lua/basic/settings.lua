@@ -9,6 +9,9 @@ set secure
 set number
 set laststatus=2
 set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+set expandtab
 set scrolloff=5
 set mouse=a
 set splitright
