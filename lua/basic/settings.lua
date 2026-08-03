@@ -39,14 +39,13 @@ vim.o.signcolumn = "yes"
 -- ================================================
 -- Go 遵循官方推荐（nvim 内置 ftplugin/go.vim）：noexpandtab + Tab 缩进，
 -- gofmt 标准。这里不覆盖缩进方式，只处理两点：
--- ① tabstop=8：gofmt 的对齐以 8 列为基准，tabstop 不是 8 的话
---    格式化后的对齐会显示错乱
+-- ① tabstop=2：Tab 显示宽度与全局 2 空格缩进一致（缩进线每 2 列一条）
 -- ② 关闭 list：ibl 对 Tab 使用 indent.tab_char 渲染纯线，
 --    不显示 "I" 填充标记（与空格缩进视觉统一）
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "go",
 	callback = function()
-		vim.opt_local.tabstop = 8
+		vim.opt_local.tabstop = 2
 		vim.opt_local.list = false
 	end,
 })
