@@ -3,7 +3,7 @@ local result = vim.cmd(
 set relativenumber
 set list
 set number
-set listchars=tab:\ \ ,trail:·
+set listchars=trail:·
 set exrc
 set secure
 set number
