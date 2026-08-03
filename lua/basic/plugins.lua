@@ -232,9 +232,17 @@ local plugins = {
     build = function()
       vim.fn["mkdp#util#install"]()
     end,
-    config = function()
+    -- init 在插件加载前执行：mkdp 的 s:init() 在 plugin/mkdp.vim 加载时
+    -- 读取这些 g: 变量注册 autocmd，放 config 里就太晚了（auto_start
+    -- 的 BufEnter 预览 autocmd 不会注册）
+    init = function()
       vim.g.mkdp_theme = "dark"
       vim.g.mkdp_filetypes = { "markdown" }
+      -- 打开 markdown 文件自动预览（浏览器），离开自动关闭
+      vim.g.mkdp_auto_start = 1
+      vim.g.mkdp_auto_close = 1
+    end,
+    config = function()
       vim.keybinds.gmap("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", vim.keybinds.opts)
     end,
   },
