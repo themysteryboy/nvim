@@ -35,24 +35,18 @@ vim.opt_local.formatoptions = vim.opt_local.formatoptions - {"c", "r", "o"}
 vim.o.signcolumn = "yes"
 
 -- ================================================
--- ================Go 缩进覆盖=====================
+-- ================Go 缩进显示=====================
 -- ================================================
--- nvim 内置 ftplugin/go.vim 强制 noexpandtab（Go 官方推荐风格：
--- gofmt 用 Tab 缩进）。这里关掉该推荐风格并强制全局一致的
--- 2 空格缩进，保证所有语言输入/自动缩进都是空格。
--- 注意：gopls 格式化（<space>f）仍按 gofmt 规则输出 Tab，
--- 这是 Go 语言标准，内容里的 Tab 会显示为纯缩进线（见下）。
-vim.g.go_recommended_style = false
+-- Go 遵循官方推荐（nvim 内置 ftplugin/go.vim）：noexpandtab + Tab 缩进，
+-- gofmt 标准。这里不覆盖缩进方式，只处理两点：
+-- ① tabstop=8：gofmt 的对齐以 8 列为基准，tabstop 不是 8 的话
+--    格式化后的对齐会显示错乱
+-- ② 关闭 list：ibl 对 Tab 使用 indent.tab_char 渲染纯线，
+--    不显示 "I" 填充标记（与空格缩进视觉统一）
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "go",
 	callback = function()
-		vim.opt_local.expandtab = true
-		vim.opt_local.shiftwidth = 2
-		vim.opt_local.softtabstop = 2
-		vim.opt_local.tabstop = 2
-		-- go 文件里已存在的 Tab 字符（gofmt 格式化产物）不显示
-		-- ibl 的 "I" 填充标记：关闭 list 后 ibl 对 Tab 使用
-		-- indent.tab_char 渲染（纯 │ 线），与其他文件视觉统一
+		vim.opt_local.tabstop = 8
 		vim.opt_local.list = false
 	end,
 })
