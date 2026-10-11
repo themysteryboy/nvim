@@ -1,14 +1,9 @@
 -- ============================================================================
--- 状态栏：lualine.nvim
--- 原 galaxyline.nvim 已停更且不兼容新版本 nvim，2026-08 迁移到 lualine
--- 布局尽量复刻原版：
---   左侧  [模式图标 | 当前目录 | 文件名 | LSP诊断 | Git diff]
---   右侧  [Git 分支 | 行列位置 | 模式]
+-- Status line: lualine.nvim
 -- ============================================================================
 
 local function mode_alias(m)
   local alias = {
-    -- lualine 传入的全名
     normal = "NORMAL",
     insert = "INSERT",
     command = "COMMAND",
@@ -17,7 +12,7 @@ local function mode_alias(m)
     visual = "VISUAL",
     ["v-line"] = "V-LINE",
     ["v-block"] = "V-BLOCK",
-    -- 兼容 vim.fn.mode() 的单字符
+
     n = "NORMAL",
     i = "INSERT",
     c = "COMMAND",
@@ -33,7 +28,7 @@ end
 
 require("lualine").setup({
   options = {
-    theme = "dracula", -- 原版配色即 dracula 系（bg #282a36）
+    theme = "dracula",
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },
     disabled_filetypes = {
@@ -46,7 +41,7 @@ require("lualine").setup({
       {
         "mode",
         fmt = function()
-          return "       "
+          return "  RUI  "
         end,
       },
     },
@@ -67,8 +62,6 @@ require("lualine").setup({
       { "filename", file_status = false },
       {
         "diagnostics",
-        -- 注意：不用 nvim_lsp 数据源——nvim 0.12 的 LSP 诊断 namespace 已改为
-        -- "nvim.lsp.*"，lualine 的 nvim_lsp 过滤旧前缀 "vim.lsp" 永远匹配不到
         sources = { "nvim_diagnostic" },
         symbols = { error = " ", warn = " ", hint = "  ", info = " " },
       },
