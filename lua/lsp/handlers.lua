@@ -1,4 +1,4 @@
--- Signs settings（Nerd Font v3 图标）
+-- Signs settings（Nerd Font v3 Icons）
 local signs = { Error = " ", Warn = " ", Hint = "󰏎 ", Info = " " }
 
 for type, icon in pairs(signs) do
@@ -33,7 +33,7 @@ local on_attach = function(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    -- gd / K 由 lspsaga 接管（见 conf/lspsaga.lua）
+    -- gd / K is configured by lspsaga (check conf/lspsaga.lua)
     -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
@@ -44,11 +44,11 @@ local on_attach = function(client, bufnr)
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-    -- <space>rn / <space>ca 由 lspsaga 接管
+    -- <space>rn / <space>ca is configured by lspsaga
     -- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
     -- vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    -- 格式化（nvim 0.11+ 中 vim.lsp.buf.formatting 已移除，改用 format）
+    -- Code Formatting
     vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
 end
 

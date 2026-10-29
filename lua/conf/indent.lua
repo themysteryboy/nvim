@@ -1,9 +1,3 @@
--- ============================================================================
--- 缩进线：indent-blankline.nvim（v3+）
--- 旧版 vim.g.indent_blankline_* 全局变量和 require("indent_blankline").setup 已废弃
--- v3 起使用 require("ibl").setup()，模块名和选项全部更新
--- ============================================================================
-
 local present, ibl = pcall(require, "ibl")
 if not present then
 	return

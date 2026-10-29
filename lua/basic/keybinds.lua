@@ -19,6 +19,8 @@ vim.keybinds.gmap("n", "<TAB>l", ":BufferLineCycleNext<CR>", vim.keybinds.opts)
 vim.keybinds.gmap("n", "<TAB>h", ":BufferLineCyclePrev<CR>", vim.keybinds.opts)
 vim.keybinds.gmap("n", "<leader>h", "<C-w>h", vim.keybinds.opts)
 vim.keybinds.gmap("n", "<leader>l", "<C-w>l", vim.keybinds.opts)
+vim.keybinds.gmap("n", "<leader>j", "<C-w>j", vim.keybinds.opts)
+vim.keybinds.gmap("n", "<leader>k", "<C-w>k", vim.keybinds.opts)
 vim.keybinds.gmap("n", "<TAB>n", ":tab split ", vim.keybinds.opts)
 
 -- Use tt to toggle nvimtree

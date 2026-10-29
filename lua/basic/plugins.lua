@@ -108,15 +108,6 @@ local plugins = {
         end,
     },
 
-    -- ==================== NeoScroll ====================
-    {
-        "karb94/neoscroll.nvim",
-        lazy = false,
-        config = function()
-            require("neoscroll").setup()
-        end,
-    },
-
     -- ==================== TODO Comment ====================
     {
         "folke/todo-comments.nvim",
