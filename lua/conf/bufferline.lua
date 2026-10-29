@@ -1,5 +1,8 @@
 require('bufferline').setup {
   options = {
+    -- 让 bufferline 以 default=false 写入高亮组，否则下面 highlights.fill.bg 会被跳过：
+    -- 该组已被主题先定义，default=true 的写入不生效。
+    themable = false,
     mode = "tabs", -- set to "tabs" to only show tabpages instead
     numbers = "none",
     close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
@@ -78,5 +81,45 @@ require('bufferline').setup {
     function(buffer_a, buffer_b)
       return buffer_a.modified > buffer_b.modified
     end
-  }
+  },
+  highlights = function(defaults)
+    -- bufferline 传进来的 defaults 是 { options = ..., highlights = ... } 结构
+    local hl = defaults.highlights
+
+    -- fill：顶部标签栏空白处，跟随 nvim 底色（默认 #252526 会成一条浅色带）
+    hl.fill.bg = "#15191F"
+
+    -- 非当前标签 / 分隔符 / 数字 / 关闭按钮等的基础底色。
+    -- 这些键在 config.lua 里都是一次性从 background_color 派生的，
+    -- 覆盖 background 不会带动它们，所以必须逐个改写。
+    local base_bg = "#1A1F26"
+    local visible_bg = "#1F252D"
+
+    local base_keys = {
+      "background", "buffer", "tab", "tab_close", "close_button", "numbers",
+      "separator", "tab_separator", "indicator", "modified", "duplicate",
+      "diagnostic", "modified_diagnostic", "pick", "pick_diagnostic",
+      "error", "error_diagnostic", "warning", "warning_diagnostic",
+      "info", "info_diagnostic", "hint", "hint_diagnostic",
+    }
+    for _, k in ipairs(base_keys) do
+      if hl[k] then hl[k].bg = base_bg end
+    end
+
+    -- 有内容但未选中的标签：默认 Normal.bg 调暗 8（#13171C），
+    -- 和新 base 撞色，抬一档区分。
+    local visible_keys = {
+      "buffer_visible", "close_button_visible", "modified_visible",
+      "indicator_visible", "numbers_visible", "diagnostic_visible",
+      "modified_diagnostic_visible", "pick_visible", "pick_diagnostic_visible",
+      "error_visible", "error_diagnostic_visible", "warning_visible",
+      "warning_diagnostic_visible", "info_visible", "info_diagnostic_visible",
+      "hint_visible", "hint_diagnostic_visible",
+    }
+    for _, k in ipairs(visible_keys) do
+      if hl[k] then hl[k].bg = visible_bg end
+    end
+
+    return hl
+  end,
 }

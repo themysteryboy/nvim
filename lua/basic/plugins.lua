@@ -22,8 +22,19 @@ local plugins = {
         lazy = false,
         priority = 1000, -- default theme, load first
         config = function()
-            -- to use the deus（conf/deus.lua）
-            -- require("conf.deus")
+            require("vscode").setup({
+                disable_nvimtree_bg = true,
+                color_overrides = {
+                    vscBack       = "#15191F",
+                    vscTabCurrent = "#15191F",
+                    vscPopupBack  = "#1A1F26",
+                },
+                group_overrides = {
+                    NvimTreeCursorLine       = { bg = "#1A1F26" },
+                    NvimTreeOpenedFolderName = { bg = "#1A1F26" },
+                    NvimTreeEndOfBuffer      = { fg = "#1A1F26" },
+                },
+            })
             -- vim.cmd.colorscheme("tokyonight")
             vim.cmd.colorscheme("vscode")
             -- vim.cmd.colorscheme("kanagawa")
@@ -184,8 +195,12 @@ local plugins = {
         ---@module 'render-markdown'
         ---@type render.md.UserConfig
         opts = {},
-    }
+    },
 
+    -- =================== Git Preview Line ======================
+    {
+        "lewis6991/gitsigns.nvim",
+    }
 }
 
 require("lazy").setup(plugins)
